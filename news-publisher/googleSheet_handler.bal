@@ -48,7 +48,6 @@ type GoogleSheet object {
         match response {
         //If successful, returns the Spreadsheet object.
         gsheets4:Spreadsheet spreadsheetRes => {
-            //io:println(spreadsheetRes);
             return spreadsheetRes;
         }
         //Unsuccessful attempts return a SpreadsheetError.
@@ -65,8 +64,6 @@ type GoogleSheet object {
 
         match spreadsheetResponse {
         gsheets4:Sheet vals => {
-            //io:println(vals.properties.sheetId);
-            //io:println(vals);
             return vals;
         }
         gsheets4:SpreadsheetError e => {

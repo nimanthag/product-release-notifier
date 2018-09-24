@@ -2,7 +2,7 @@ import ballerina/config;
 import ballerina/io;
 import ballerina/log;
 import wso2/gmail;
-    endpoint gmail:Client gmailClient {
+endpoint gmail:Client gmailClient {
     clientConfig: {
         auth:{
             accessToken: config:getAsString("ACCESS_TOKEN"),
@@ -13,7 +13,7 @@ import wso2/gmail;
     }
 };
 
-type Gmail object{
+type Gmail object {
 
     function sendMail(string customerEmail, string subject, string messageBody) returns boolean {
     //Create html message

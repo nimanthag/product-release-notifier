@@ -1,5 +1,5 @@
-import ballerina/log;
 import ballerina/io;
+import ballerina/log;
 @final string MESSAGE_ADDRESS = "Hi ";
 @final string MESSAGE_START = "\n We have released ";
 @final string MESSAGE_MIDDILE = " Click on the link to download the latest version:";
@@ -7,9 +7,6 @@ import ballerina/io;
 @final int PRODUCT_COLUMN = 0;
 @final int USERNAME_COLUMN = 1;
 @final int EMAIL_COLUMN = 2;
-// We have released Ballerina 0.981.0. Click on the link to download the latest version: http://bit.ly/2MjPzrk 
-// For the full list of improvements and feature additions, please refer to the release note.
-// #Ballerinalang
 
 type ReleaseDetail record {
     string product,
@@ -21,7 +18,6 @@ type ReleaseDetail record {
 function main(string... args) {
     GoogleSheet sheet = new;
     sheet.init();
-    //var newSheet = sheet.addNewGSheet("ABC");
     io:println("Argument count :"+ args.count());
     ReleaseDetail detail;
     detail.product = args[0];
