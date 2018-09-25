@@ -1,5 +1,6 @@
 import ballerina/io;
 import ballerina/log;
+import ballerina/config;
 @final string MESSAGE_ADDRESS = "Hi ";
 @final string MESSAGE_START = "\n We have released ";
 @final string MESSAGE_MIDDILE = " Click on the link to download the latest version:";
@@ -14,17 +15,28 @@ type ReleaseDetail record {
     string versionNumber,
     string releaseNote,
 };
-
+function printhelp(){
+    io:println("Please use following format to initialize the program");
+    io:println("ballerina run news-publisher/ [Product] [Version Number] [Version download link] [Release note]");
+    io:println("Example - ballerina run news-publisher/ Ballerina 0.981.0 http://bit.ly/2MjPzrk Ballerinalang");
+}
 function main(string... args) {
-    GoogleSheet sheet = new;
-    sheet.init();
+    
     io:println("Argument count :"+ args.count());
+    if(args.count() != 4){
+        printhelp();
+        return;
+    }
     ReleaseDetail detail;
     detail.product = args[0];
     detail.versionNumber = args[1];
     detail.versionDownloadLink = args[2];
     detail.releaseNote = args[3];
-    var sheetDetail = sheet.getDetailsFromGSheet("stats");
+
+    GoogleSheet sheet = new;
+    sheet.init();
+
+    var sheetDetail = sheet.getDetailsFromGSheet(config:getAsString("SHEET_NAME"));
     match sheetDetail {
             string[][] blnc => {
             sendEmails(detail, blnc);
